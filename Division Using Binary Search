@@ -1,0 +1,22 @@
+  #include <iostream>
+using namespace std;
+
+int main()
+{
+    int dividend, divisor;
+
+    cin >> dividend;
+    cin >> divisor;
+
+    int count = 0;
+
+    while(dividend >= divisor)
+    {
+        dividend = dividend - divisor;
+        count++;
+    }
+
+    cout << count;
+
+    return 0;
+}
