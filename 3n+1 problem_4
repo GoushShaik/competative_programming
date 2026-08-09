@@ -1,0 +1,48 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    int i , j;
+    cin>> i >> j;
+    
+    if ( i > j )
+    {
+        swap(i , j);
+    }
+    
+    int max_length = 0;
+    for ( int k =i ; k<= j; k++)
+    {
+        int n = k;
+        int l = 1;
+        
+        while (n != 1)
+        {
+            if(n%2 == 0)
+            {
+                n = n/2;
+            }
+            else 
+            {
+                n = 3*n+1;
+            }
+            l++;
+            }
+            if ( l > max_length)
+            {
+                max_length = l;
+            }
+        }
+        cout<< i <<" " << j<< " " << max_length;
+        
+    
+    
+    
+    return 0;
+}
