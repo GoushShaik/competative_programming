@@ -1,0 +1,42 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    string s;
+    cin >> s;
+
+    int seen = 0;
+    int duplicate = 0;
+
+    for (char c : s) {
+        int position = c - 'a';
+        int mask = 1 << position;
+
+        if (seen & mask) {
+            duplicate = duplicate | mask;
+        } else {
+            seen = seen | mask;
+        }
+    }
+
+    int printed = 0;
+    bool found = false;
+
+    for (char c : s) {
+        int position = c - 'a';
+        int mask = 1 << position;
+
+        if ((duplicate & mask) && !(printed & mask)) {
+            cout << c << " ";
+            printed = printed | mask;
+            found = true;
+        }
+    }
+
+    if (!found) {
+        cout << "No duplicates";
+    }
+
+    return 0;
+}
