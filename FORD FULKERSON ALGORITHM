@@ -1,0 +1,77 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int V, E;
+    cin >> V >> E;
+
+    int capacity[100][100] = {0};
+
+    for (int i = 0; i < E; i++) {
+        int u, v, c;
+        cin >> u >> v >> c;
+        capacity[u][v] += c;
+    }
+
+    int source = 0;
+    int sink = V - 1;
+    int maxFlow = 0;
+
+    while (true) {
+        int parent[100];
+        bool visited[100] = {false};
+        int queue[100];
+
+        for (int i = 0; i < V; i++)
+            parent[i] = -1;
+
+        int front = 0, rear = 0;
+
+        queue[rear++] = source;
+        visited[source] = true;
+
+        while (front < rear) {
+            int u = queue[front++];
+
+            for (int v = 0; v < V; v++) {
+                if (!visited[v] && capacity[u][v] > 0) {
+                    parent[v] = u;
+                    visited[v] = true;
+                    queue[rear++] = v;
+                }
+            }
+        }
+
+        if (!visited[sink])
+            break;
+
+        int flow = 1000000000;
+        int v = sink;
+
+        while (v != source) {
+            int u = parent[v];
+
+            if (capacity[u][v] < flow)
+                flow = capacity[u][v];
+
+            v = u;
+        }
+
+        v = sink;
+
+        while (v != source) {
+            int u = parent[v];
+
+            capacity[u][v] -= flow;
+            capacity[v][u] += flow;
+
+            v = u;
+        }
+
+        maxFlow += flow;
+    }
+
+    cout << maxFlow;
+
+    return 0;
+}
