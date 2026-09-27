@@ -1,0 +1,52 @@
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+int gcd(int a, int b, int &x, int &y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    }
+
+    int x1, y1;
+    int d = gcd(b, a % b, x1, y1);
+
+    x = y1;
+    y = x1 - (a / b) * y1;
+
+    return d;
+}
+
+int main() {
+    int A, B;
+    cin >> A >> B;
+
+    int x, y;
+
+    int D = gcd(A, B, x, y);
+
+    int bx = x;
+    int by = y;
+    int best = abs(x) + abs(y);
+
+    int p = B / D;
+    int q = A / D;
+
+    for (int k = -100; k <= 100; k++) {
+        int nx = x + k * p;
+        int ny = y - k * q;
+
+        int value = abs(nx) + abs(ny);
+
+        if (value < best || (value == best && nx <= ny)) {
+            best = value;
+            bx = nx;
+            by = ny;
+        }
+    }
+
+    cout << bx << " " << by << " " << D;
+
+    return 0;
+}
