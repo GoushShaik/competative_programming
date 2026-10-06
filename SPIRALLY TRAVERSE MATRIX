@@ -18,24 +18,20 @@ int main() {
 
     while (top <= bottom && left <= right) {
 
-        // Left to Right
         for (int j = left; j <= right; j++)
             cout << a[top][j] << " ";
         top++;
 
-        // Top to Bottom
         for (int i = top; i <= bottom; i++)
             cout << a[i][right] << " ";
         right--;
 
-        // Right to Left
         if (top <= bottom) {
             for (int j = right; j >= left; j--)
                 cout << a[bottom][j] << " ";
             bottom--;
         }
 
-        // Bottom to Top
         if (left <= right) {
             for (int i = bottom; i >= top; i--)
                 cout << a[i][left] << " ";
